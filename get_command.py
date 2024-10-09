@@ -8,13 +8,14 @@ def setup_get(client):
     async def search(interaction: discord.Interaction, query: str):
         query = query.replace(' ', '%20')
         search_url = f"https://pddikti.kemdikbud.go.id/api/pencarian/mhs/{query}"
-        response = requests.get(search_url)
+        headers = {"x-api-key": "3ed297db-db1c-4266-8bf4-a89f21c01317"}
+        response = requests.get(search_url, headers=headers)
         data = response.json()
     
         if data and 'id' in data[0]:
             student_id = data[0]['id']
             detail_url = f"https://pddikti.kemdikbud.go.id/api/detail/mhs/{student_id}"
-            detail_response = requests.get(detail_url)
+            detail_response = requests.get(detail_url, headers=headers)
             detail_data = detail_response.json()
     
             # Extract required fields

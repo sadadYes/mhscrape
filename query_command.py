@@ -54,7 +54,8 @@ class StudentButton(discord.ui.Button):
     async def callback(self, interaction: discord.Interaction):
         student_id = self.student['id']
         detail_url = f"https://pddikti.kemdikbud.go.id/api/detail/mhs/{student_id}"
-        detail_response = requests.get(detail_url)
+        headers = {"x-api-key": "3ed297db-db1c-4266-8bf4-a89f21c01317"}
+        detail_response = requests.get(detail_url, headers=headers)
         detail_data = detail_response.json()
 
         # Extract required fields
@@ -112,7 +113,8 @@ def setup_query(client):
     async def query(interaction: discord.Interaction, name: str):
         name = name.replace(' ', '%20')
         search_url = f"https://pddikti.kemdikbud.go.id/api/pencarian/mhs/{name}"
-        response = requests.get(search_url)
+        headers = {"x-api-key": "3ed297db-db1c-4266-8bf4-a89f21c01317"}
+        response = requests.get(search_url, headers=headers)
         data = response.json()
 
         if data:
